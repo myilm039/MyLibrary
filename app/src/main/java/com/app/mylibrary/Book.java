@@ -11,6 +11,9 @@ public class Book {
     private int pageCount;
     private String category;
     private int id;
+    private boolean isInWL =false;
+    private boolean isInCollection =false;
+
 
 
     public int getID() {
@@ -46,6 +49,22 @@ public class Book {
     }
 
     public String getAuthors(){return authors;}
+
+    public boolean getWLStatus(){return isInWL;}
+
+    public boolean getCollectionStatus(){return isInCollection;}
+
+    public void setWLStatus(boolean status){
+
+        isInWL = status;
+    }
+
+    public void setCollectionStatus(boolean status){
+
+        isInCollection = status;
+
+    }
+
 
 
     public void setSubtitle(String subtitle) {

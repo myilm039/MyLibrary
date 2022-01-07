@@ -135,9 +135,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteOneRow(String tableName, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        if(id==null){
-            throw new NullPointerException("NULL GELDI deleteOneRow metoduna");
-        }
+
         long result = db.delete(tableName, "_id=?", new String[]{id});
         if (result == -1) {
             Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();

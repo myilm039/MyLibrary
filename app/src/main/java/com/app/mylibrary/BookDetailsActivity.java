@@ -33,8 +33,8 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     TextView titleField, subtitleField, publisherField, descriptionField, numberOfPagesField, publishingDateField, authorsField,
             viewabilityField, genreField;
-    Button previewButton, buyButton, markAsReadButton, wishListButton;
-    private ImageView bookIV;
+    Button previewButton, buyButton;
+    private ImageView bookIV, bookmarkIV, wishListIV;
     RecyclerView sameCategoryRV;
     static Book currentBook;
     private RequestQueue requestQueue;
@@ -55,12 +55,14 @@ public class BookDetailsActivity extends AppCompatActivity {
         previewButton = findViewById(R.id.previewButton);
         buyButton = findViewById(R.id.buyButton);
         bookIV = findViewById(R.id.bookIV);
-        markAsReadButton = findViewById(R.id.markAsReadButton);
-        wishListButton = findViewById(R.id.wishListButton);
         authorsField = findViewById(R.id.authorsField);
         viewabilityField = findViewById(R.id.viewabilityField);
         sameCategoryRV = findViewById(R.id.sameCategoryRV);
         genreField = findViewById(R.id.genreField);
+        bookmarkIV = findViewById(R.id.emptyBookmarkIV);
+        wishListIV = findViewById(R.id.wishListIV);
+
+
 
         titleField.setText(currentBook.getTitle());
         genreField.setText(currentBook.getCategory());
@@ -75,7 +77,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         viewabilityField.setText(viewabilityField.getText() + ": " + currentBook.getViewability());
 
         getSameCategoryRVData(currentBook.getCategory());
-        System.out.println(currentBook.getAuthors().split(",")[0]);
+        setIcons();
 
 
         bookIV.setOnClickListener(new View.OnClickListener() {
@@ -115,19 +117,26 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
-        markAsReadButton.setOnClickListener(new View.OnClickListener() {
+        bookmarkIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.addBook("my_collection",currentBook);
-                markAsReadButton.setEnabled(false);
+
+                db.addBook("my_collection", currentBook);
+                currentBook.setCollectionStatus(true);
+                v.setOnClickListener(null);
+                setIcons();
+
             }
         });
 
-        wishListButton.setOnClickListener(new View.OnClickListener() {
+        wishListIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.addBook("my_wishlist",currentBook);
-                wishListButton.setEnabled(false);}
+                currentBook.setWLStatus(true);
+                v.setOnClickListener(null);
+                setIcons();
+            }
         });
 
     }
@@ -254,6 +263,21 @@ public class BookDetailsActivity extends AppCompatActivity {
         }
         return authorsStr;
     }
+
+    public void setIcons(){
+
+        if(currentBook.getWLStatus()){
+            wishListIV.setImageResource(R.drawable.full_heart);
+        }
+
+        if(currentBook.getCollectionStatus()){
+
+            bookmarkIV.setImageResource(R.drawable.ic_baseline_bookmark_24);
+
+        }
+
+    }
+
 
 
 

@@ -16,14 +16,14 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="12dp">
 
-            <TextView
-                android:id="@+id/book_id_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="#000"
-                android:textSize="40sp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/bookIV"
+                android:layout_width="130dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:id="@+id/book_title_txt"
@@ -31,20 +31,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/book_id_txt"
+                android:layout_marginBottom="16dp"
+                android:layout_toRightOf="@id/bookIV"
                 android:text="Title 1"
                 android:textColor="#000"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/book_author_txt"
+                android:id="@+id/book_genre_txt"
                 android:layout_width="342dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/book_title_txt"
                 android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@id/book_id_txt"
-                android:text="Author1" />
+                android:layout_toRightOf="@id/bookIV"
+                android:text="Authors"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/book_genre_txt"
+                android:layout_alignParentBottom="false"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/bookIV"
+                android:text="TextView" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -152,10 +152,10 @@ public class CollectionDetailsActivity extends AppCompatActivity {
 
         }
         ratingBar.setRating(currentBook.getRating());
-        authorsField.setText("Authors: "+currentBook.getAuthors());
-        titleField.setText("Title: "+currentBook.getTitle());
-        publisherField.setText("Publisher: "+currentBook.getPublisher());
-        publishDateField.setText("Publishing date: "+currentBook.getPublishedDate());
+        authorsField.setText(currentBook.getAuthors());
+        titleField.setText(currentBook.getTitle());
+        publisherField.setText(currentBook.getPublisher());
+        publishDateField.setText(currentBook.getPublishedDate());
         numberOfPagesField.setText("Number of pages: "+ String.valueOf(currentBook.getPageCount()));
         viewabilityField.setText("Free Viewability: "+currentBook.getViewability());
         subtitleField.setText(currentBook.getSubtitle());
@@ -184,10 +184,12 @@ public class CollectionDetailsActivity extends AppCompatActivity {
 
 
                 if(currentActivity.getTitle()=="My Collection") {
+                    currentBook.setCollectionStatus(false);
                     db.deleteOneRow("my_collection", String.valueOf(currentBook.getID()));
                 }
 
                 else if(currentActivity.getTitle()=="My WishList"){
+                    currentBook.setWLStatus(false);
                     db.deleteOneRow("my_wishlist", String.valueOf(currentBook.getID()));
 
                 }

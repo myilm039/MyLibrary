@@ -8,7 +8,7 @@
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_collection_details.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_main.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_search.xml" value="0.34103260869565216" />
-        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/collection_item.xml" value="0.34103260869565216" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/collection_item.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/horizontal_rv_item.xml" value="0.1" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/search_result_item.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/menu/my_menu.xml" value="0.35989583333333336" />
@@ -20,5 +20,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.4466666666666667" />
+      </ProjectState>
+    </option>
   </component>
 </project>
