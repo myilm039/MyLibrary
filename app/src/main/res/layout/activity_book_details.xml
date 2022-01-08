@@ -130,7 +130,7 @@
 
 
         <ImageView
-            android:id="@+id/emptyBookmarkIV"
+            android:id="@+id/bookmarkIV"
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:layout_weight="1"

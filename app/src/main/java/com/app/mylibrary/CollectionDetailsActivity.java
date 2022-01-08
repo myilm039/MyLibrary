@@ -143,7 +143,6 @@ public class CollectionDetailsActivity extends AppCompatActivity {
         }
 
         else if(currentActivity.getTitle() == "My WishList"){
-            Log.d("TAG","SCOOCH");
             deleteButton.setText("Remove from wishlist");
             commentField.setVisibility(View.GONE);
             ratingBar.setVisibility(View.GONE);
@@ -182,16 +181,9 @@ public class CollectionDetailsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseHelper db = new DatabaseHelper(CollectionDetailsActivity.this);
 
-
-                if(currentActivity.getTitle()=="My Collection") {
-                    currentBook.setCollectionStatus(false);
-                    db.deleteOneRow("my_collection", String.valueOf(currentBook.getID()));
-                }
-
-                else if(currentActivity.getTitle()=="My WishList"){
+                 if(currentActivity.getTitle()=="My WishList"){
                     currentBook.setWLStatus(false);
-                    db.deleteOneRow("my_wishlist", String.valueOf(currentBook.getID()));
-
+                    db.deleteOneRow("my_wishlist", currentBook);
                 }
                 refreshPage();
                 finish();

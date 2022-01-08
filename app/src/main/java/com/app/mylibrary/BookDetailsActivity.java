@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -59,9 +58,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         viewabilityField = findViewById(R.id.viewabilityField);
         sameCategoryRV = findViewById(R.id.sameCategoryRV);
         genreField = findViewById(R.id.genreField);
-        bookmarkIV = findViewById(R.id.emptyBookmarkIV);
+        bookmarkIV = findViewById(R.id.bookmarkIV);
         wishListIV = findViewById(R.id.wishListIV);
-
 
 
         titleField.setText(currentBook.getTitle());
@@ -86,13 +84,14 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                 Uri uri = Uri.parse(currentBook.getThumbnail());
                 Intent i = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(i);            }
+                startActivity(i);
+            }
         });
 
         previewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentBook.getPreviewLink().isEmpty()){
+                if (currentBook.getPreviewLink().isEmpty()) {
 
                     Toast.makeText(BookDetailsActivity.this, "No preview Link present", Toast.LENGTH_SHORT).show();
                     return;
@@ -117,29 +116,33 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
-        bookmarkIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            bookmarkIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!currentBook.getCollectionStatus()) {
+                        System.out.println("11111111");
+                        currentBook.setCollectionStatus(true);
+                        db.addBook("my_collection", currentBook);
+                        setIcons();
+                    }
+                }
+            });
 
-                db.addBook("my_collection", currentBook);
-                currentBook.setCollectionStatus(true);
-                v.setOnClickListener(null);
-                setIcons();
 
-            }
-        });
-
-        wishListIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.addBook("my_wishlist",currentBook);
-                currentBook.setWLStatus(true);
-                v.setOnClickListener(null);
-                setIcons();
-            }
-        });
+            wishListIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!currentBook.getWLStatus()) {
+                        System.out.println("4444444");
+                        currentBook.setWLStatus(true);
+                        db.addBook("my_wishlist", currentBook);
+                        setIcons();
+                    }
+                }
+            });
 
     }
+
 
     public static void setCurrentBook(Book book){
 
@@ -159,25 +162,22 @@ public class BookDetailsActivity extends AppCompatActivity {
                 while(true){
                     try {
                         if (counter>= response.getJSONArray("items").length()) {
-                            Log.d("HATA", "ilk if e girdi");
                             break;
                         }
 
                         if(response.getJSONArray("items").length()==0){
 
-                            Log.d("NOPE", "Hicbir alakali kitap bulunamadi");
                             return;
                         }
                     }
                     catch (JSONException | NullPointerException e) {
 
                         e.printStackTrace();
-                        Log.d("HATA", "JSONException veya NullPointerException a girdi");
+                        break;
 
                     }
                     try {
                         JSONArray itemsArray = response.getJSONArray("items");
-                        System.out.println(itemsArray.length());
 
                         while(counter<itemsArray.length()) {
 
@@ -199,6 +199,8 @@ public class BookDetailsActivity extends AppCompatActivity {
                             String buyLink = saleInfoObj.optString("buyLink");
                             JSONObject accessObj = itemsObj.getJSONObject("accessInfo");
                             String viewability = accessObj.optString("viewability");
+                            String uniqueID = itemsObj.optString("id");
+
 
 
                             ArrayList<String> authorsArrayList = new ArrayList<>();
@@ -209,12 +211,11 @@ public class BookDetailsActivity extends AppCompatActivity {
                             }
                             Book bookInfo = new Book(0,title, subtitle, getAuthors(authorsArrayList), publisher,
                                     publishedDate, description, pageCount, thumbnail, previewLink,
-                                    buyLink,viewability,"",0,category);
+                                    buyLink,viewability,"",0,category, uniqueID);
 
                             sameCategoryBooksList.add(bookInfo);
                             Collections.shuffle(sameCategoryBooksList);
 
-                            Log.d("SUCCESS", String.valueOf(sameCategoryBooksList.size()));
 
                             HorizontalRVAdapter adapter = new HorizontalRVAdapter(BookDetailsActivity.this,getApplicationContext(),sameCategoryBooksList);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BookDetailsActivity.this, RecyclerView.HORIZONTAL, false);
@@ -227,9 +228,6 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                     }
                     catch (JSONException | NullPointerException e) {
-                        Log.d("HATA", String.valueOf(e));
-                        System.out.println(e.getStackTrace()[0]);
-
                         counter++;
                     }
 
@@ -239,7 +237,6 @@ public class BookDetailsActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("HATA", "onErrorResponse a girdi");
                 Toast.makeText(BookDetailsActivity.this, "Error found is " + error, Toast.LENGTH_SHORT).show();
             }
         });
@@ -266,12 +263,16 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     public void setIcons(){
 
+        System.out.println("IS CURRENT BOOK IN COLLECTION STATUS:" + currentBook.getCollectionStatus());
+        System.out.println("IS CURRENT BOOK IN WL STATUS:" + currentBook.getWLStatus());
+
+
+
         if(currentBook.getWLStatus()){
             wishListIV.setImageResource(R.drawable.full_heart);
         }
 
         if(currentBook.getCollectionStatus()){
-
             bookmarkIV.setImageResource(R.drawable.ic_baseline_bookmark_24);
 
         }

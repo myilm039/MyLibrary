@@ -172,10 +172,13 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getString(11),
                     cursor.getString(12),
                     cursor.getFloat(13),
-                    cursor.getString(14)));
+                    cursor.getString(14),
+                    cursor.getString(15)));
+
 
         }
 
+        cursor.close();
     }
 
     @Override
@@ -211,13 +214,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseHelper myDB = new DatabaseHelper(MainActivity.this);
 
-                if(getTitle()=="My Collection") {
-                    myDB.deleteAllData("my_collection");
+                 if(getTitle()=="My WishList"){
+                    myDB.deleteAllData("my_wishlist");
                 }
 
-                else if(getTitle()=="My WishList"){
-                    myDB.deleteAllData("my_wishlist");
-
+                else if(getTitle()=="My Collection"){
+                    myDB.deleteAllData("my_collection");
                 }
                 refreshPage();
                 finish();

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,13 @@ public class SearchActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private ArrayList<Book> bookInfoArrayList;
+    protected static ArrayList<Book> currentWL = new ArrayList<>();
+    protected static ArrayList<Book> currentCollection = new ArrayList<>();
+
     private ProgressBar progressBar;
     private EditText searchField;
     private ImageButton searchButton;
+    DatabaseHelper db;
     private LinearLayout genresSVLL;
 
     @Override
@@ -50,6 +55,12 @@ public class SearchActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
         genresSVLL = findViewById(R.id.genresSVLL);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        db = new DatabaseHelper(SearchActivity.this);
+        fillSV();
+        currentWL.clear();
+        currentCollection.clear();
+        storeData("my_wishlist");
+        storeData("my_collection");
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +76,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        fillSV();
+
+
     }
 
     private void getBooksInfo(String query, String genre) {
@@ -99,7 +111,7 @@ public class SearchActivity extends AppCompatActivity {
                     catch (JSONException | NullPointerException e) {
 
                         e.printStackTrace();
-                        Toast.makeText(SearchActivity.this, "Something went wrong " + e, Toast.LENGTH_SHORT).show();
+                        break;
 
                     }
                     try {
@@ -124,6 +136,8 @@ public class SearchActivity extends AppCompatActivity {
                             String buyLink = saleInfoObj.optString("buyLink");
                             JSONObject accessObj = itemsObj.getJSONObject("accessInfo");
                             String viewability = accessObj.optString("viewability");
+                            String uniqueID = itemsObj.optString("id");
+
 
 
                             ArrayList<String> authorsArrayList = new ArrayList<>();
@@ -134,16 +148,8 @@ public class SearchActivity extends AppCompatActivity {
                             }
                             Book bookInfo = new Book(0,title, subtitle, getAuthors(authorsArrayList), publisher,
                                     publishedDate, description, pageCount, thumbnail, previewLink,
-                                    buyLink,viewability,"",0,category);
-
+                                    buyLink,viewability,"",0,category, uniqueID);
                             bookInfoArrayList.add(bookInfo);
-
-                            SearchResultsAdapter adapter = new SearchResultsAdapter(bookInfoArrayList, SearchActivity.this);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchActivity.this, RecyclerView.VERTICAL, false);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.searchResultsRV);
-
-                            recyclerView.setLayoutManager(linearLayoutManager);
-                            recyclerView.setAdapter(adapter);
 
                             counter++;
                         }
@@ -154,7 +160,21 @@ public class SearchActivity extends AppCompatActivity {
                     }
 
                 }
+                System.out.println("IS CURRENTWL EMPTY" + currentWL.isEmpty());
+                if(!currentWL.isEmpty()) {
+                    modifyWishlist();
+                }
 
+                if(!currentCollection.isEmpty()) {
+                    modifyCollection();
+                }
+
+                SearchResultsAdapter adapter = new SearchResultsAdapter(bookInfoArrayList, SearchActivity.this);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchActivity.this, RecyclerView.VERTICAL, false);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.searchResultsRV);
+
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -205,10 +225,162 @@ public class SearchActivity extends AppCompatActivity {
                         getBooksInfo("",categories.get(finalI));
                     }
                 });
+
                 genreButton.setText(categories.get(i));
                 genresSVLL.addView(genreButton);
             }
 
     }
 
-}
+    public void modifyWishlist(){
+        System.out.println("SIZEEEEEEE " + currentWL.size());
+
+
+        int counter=0;
+
+        while(true){
+
+            if(counter >= currentWL.size()){
+                break;
+            }
+
+            try {
+
+                for (int i = 0; i < currentWL.size(); i++) {
+
+                    for (int j = 0; j < bookInfoArrayList.size(); j++) {
+                        System.out.println(currentWL.get(i).getUniqueID());
+                        System.out.println(bookInfoArrayList.get(j).getUniqueID());
+
+
+
+                        if (currentWL.get(i).getUniqueID().equals(bookInfoArrayList.get(j).getUniqueID())) {
+                            bookInfoArrayList.get(j).setWLStatus(true);
+                            System.out.println("modifyWishlistIter" + bookInfoArrayList.get(j).getWLStatus());
+                        }
+
+
+                    }
+                    counter++;
+                }
+            }
+
+            catch (Exception e) {
+
+                e.printStackTrace();
+                counter++;
+            }
+
+        }
+    }
+
+    public void modifyCollection(){
+
+        int counter=0;
+
+        while(true){
+
+            if(counter >= currentCollection.size()){
+                break;
+            }
+
+            try {
+
+                for (int i = 0; i < currentCollection.size(); i++) {
+
+                    for (int j = 0; j < bookInfoArrayList.size(); j++) {
+
+                        if (currentCollection.get(i).getUniqueID().equals(bookInfoArrayList.get(j).getUniqueID())) {
+                            bookInfoArrayList.get(j).setCollectionStatus(true);
+                            System.out.println("modifyCollectionIter" + bookInfoArrayList.get(j).getCollectionStatus());
+
+                        }
+
+
+                    }
+                    counter++;
+                }
+            }
+
+            catch (Exception e) {
+
+                e.printStackTrace();
+                counter++;
+            }
+
+        }
+    }
+
+    public void storeData(String tableName) {
+        Cursor cursor = db.readAllData(tableName);
+
+        if (cursor.getCount() == 0) {
+            return;
+        }
+
+        if (tableName == "my_wishlist") {
+            System.out.println("storedata WL icin calisti");
+
+            while (cursor.moveToNext()) {
+
+                currentWL.add(new Book(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7),
+                        cursor.getString(8),
+                        cursor.getString(9),
+                        cursor.getString(10),
+                        cursor.getString(11),
+                        cursor.getString(12),
+                        cursor.getFloat(13),
+                        cursor.getString(14),
+                        cursor.getString(15)));
+
+
+            }
+
+            System.out.println("AFTER STOREDATA: CURRENTWL SIZE" + currentWL.size());
+
+            cursor.close();
+
+        }
+
+        else if(tableName=="my_collection"){
+
+            System.out.println("storedata COLLECTION icin calisti");
+
+            while (cursor.moveToNext()) {
+
+                currentCollection.add(new Book(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7),
+                        cursor.getString(8),
+                        cursor.getString(9),
+                        cursor.getString(10),
+                        cursor.getString(11),
+                        cursor.getString(12),
+                        cursor.getFloat(13),
+                        cursor.getString(14),
+                        cursor.getString(15)));
+
+
+            }
+            System.out.println("AFTER STOREDATA: CURRENTCOLLECTION SIZE" + currentCollection.size());
+
+            cursor.close();
+
+        }
+
+
+
+        }
+    }

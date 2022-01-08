@@ -13,13 +13,7 @@ public class Book {
     private int id;
     private boolean isInWL =false;
     private boolean isInCollection =false;
-
-
-
-    public int getID() {
-        return id;
-    }
-
+    private String uniqueID;
     private String thumbnail;
     private String previewLink;
     private String buyLink;
@@ -38,6 +32,20 @@ public class Book {
 
     public String getSubtitle() {
         return subtitle;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public String getUniqueID(){
+
+        return uniqueID;
+    }
+
+    public void setUniqueID(String uniqueID){
+
+        this.uniqueID = uniqueID;
     }
 
     public float getRating() {
@@ -154,7 +162,7 @@ public class Book {
     public Book(int id,String title, String subtitle, String authors, String publisher,
                 String publishedDate, String description, int pageCount, String thumbnail,
                 String previewLink, String buyLink, String viewability,
-                String comment, float rating, String category) {
+                String comment, float rating, String category, String uniqueID) {
         this.id=id;
         this.title = title;
         this.subtitle = subtitle;
@@ -170,6 +178,7 @@ public class Book {
         this.comment=comment;
         this.rating = rating;
         this.category = category;
+        this.uniqueID = uniqueID;
 
     }
 

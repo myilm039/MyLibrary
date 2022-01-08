@@ -34,6 +34,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_THUMBNAIL = "thumbnail";
     private static final String COLUMN_PUBLISHDATE = "publishing_date";
     private static final String COLUMN_CATEGORY = "category";
+    private static final String COLUMN_UNIQUE_ID = "uniqueID";
 
 
 
@@ -61,7 +62,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_VIEWABILITY + " TEXT, " +
                 COLUMN_COMMENT + " TEXT, " +
                 COLUMN_RATING + " REAL, " +
-                COLUMN_CATEGORY + " TEXT);";
+                COLUMN_CATEGORY + " TEXT, " +
+                COLUMN_UNIQUE_ID + " TEXT);";
 
         String query2 = "CREATE TABLE " + WISHLIST_TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -78,7 +80,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_VIEWABILITY + " TEXT, " +
                 COLUMN_COMMENT + " TEXT, " +
                 COLUMN_RATING + " REAL, " +
-                COLUMN_CATEGORY + " TEXT);";
+                COLUMN_CATEGORY + " TEXT, " +
+                COLUMN_UNIQUE_ID + " TEXT);";
 
 
 
@@ -111,6 +114,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_VIEWABILITY, book.getViewability());
         cv.put(COLUMN_THUMBNAIL, book.getThumbnail());
         cv.put(COLUMN_CATEGORY, book.getCategory());
+        cv.put(COLUMN_UNIQUE_ID, book.getUniqueID());
 
 
         long result = db.insert(tableName, null, cv);
@@ -133,15 +137,16 @@ class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void deleteOneRow(String tableName, String id) {
+    public void deleteOneRow(String tableName, Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        long result = db.delete(tableName, "_id=?", new String[]{id});
+        long result = db.delete(tableName, "_id=?", new String[]{String.valueOf(book.getID())});
         if (result == -1) {
             Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void deleteAllData(String tableName) {
@@ -168,6 +173,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_VIEWABILITY, book.getViewability());
         cv.put(COLUMN_THUMBNAIL, book.getThumbnail());
         cv.put(COLUMN_CATEGORY, book.getCategory());
+        cv.put(COLUMN_UNIQUE_ID, book.getUniqueID());
+
 
         long result = db.update(tableName, cv, "_id=?", new String[]{String.valueOf(book.getID())});
         if(result == -1){
@@ -179,12 +186,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
-
-
-
-
-
-
 
 
 }
