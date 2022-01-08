@@ -185,6 +185,11 @@ public class CollectionDetailsActivity extends AppCompatActivity {
                     currentBook.setWLStatus(false);
                     db.deleteOneRow("my_wishlist", currentBook);
                 }
+
+                else if(currentActivity.getTitle()=="My Collection"){
+                    currentBook.setCollectionStatus(false);
+                    db.deleteOneRow("my_collection", currentBook);
+                }
                 refreshPage();
                 finish();
             }

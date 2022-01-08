@@ -30,6 +30,11 @@ public class Book {
         this.title = title;
     }
 
+    public void setID(int ID){
+
+        this.id = ID;
+    };
+
     public String getSubtitle() {
         return subtitle;
     }

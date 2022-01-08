@@ -43,7 +43,6 @@ public class SearchActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText searchField;
     private ImageButton searchButton;
-    DatabaseHelper db;
     private LinearLayout genresSVLL;
 
     @Override
@@ -55,7 +54,6 @@ public class SearchActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
         genresSVLL = findViewById(R.id.genresSVLL);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        db = new DatabaseHelper(SearchActivity.this);
         fillSV();
         currentWL.clear();
         currentCollection.clear();
@@ -160,7 +158,6 @@ public class SearchActivity extends AppCompatActivity {
                     }
 
                 }
-                System.out.println("IS CURRENTWL EMPTY" + currentWL.isEmpty());
                 if(!currentWL.isEmpty()) {
                     modifyWishlist();
                 }
@@ -233,7 +230,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void modifyWishlist(){
-        System.out.println("SIZEEEEEEE " + currentWL.size());
 
 
         int counter=0;
@@ -249,14 +245,11 @@ public class SearchActivity extends AppCompatActivity {
                 for (int i = 0; i < currentWL.size(); i++) {
 
                     for (int j = 0; j < bookInfoArrayList.size(); j++) {
-                        System.out.println(currentWL.get(i).getUniqueID());
-                        System.out.println(bookInfoArrayList.get(j).getUniqueID());
 
 
 
                         if (currentWL.get(i).getUniqueID().equals(bookInfoArrayList.get(j).getUniqueID())) {
                             bookInfoArrayList.get(j).setWLStatus(true);
-                            System.out.println("modifyWishlistIter" + bookInfoArrayList.get(j).getWLStatus());
                         }
 
 
@@ -292,7 +285,6 @@ public class SearchActivity extends AppCompatActivity {
 
                         if (currentCollection.get(i).getUniqueID().equals(bookInfoArrayList.get(j).getUniqueID())) {
                             bookInfoArrayList.get(j).setCollectionStatus(true);
-                            System.out.println("modifyCollectionIter" + bookInfoArrayList.get(j).getCollectionStatus());
 
                         }
 
@@ -312,6 +304,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void storeData(String tableName) {
+        DatabaseHelper db = new DatabaseHelper(SearchActivity.this);
+
         Cursor cursor = db.readAllData(tableName);
 
         if (cursor.getCount() == 0) {
@@ -319,7 +313,6 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         if (tableName == "my_wishlist") {
-            System.out.println("storedata WL icin calisti");
 
             while (cursor.moveToNext()) {
 
@@ -343,15 +336,14 @@ public class SearchActivity extends AppCompatActivity {
 
             }
 
-            System.out.println("AFTER STOREDATA: CURRENTWL SIZE" + currentWL.size());
 
             cursor.close();
+            db.close();
 
         }
 
         else if(tableName=="my_collection"){
 
-            System.out.println("storedata COLLECTION icin calisti");
 
             while (cursor.moveToNext()) {
 
@@ -374,13 +366,10 @@ public class SearchActivity extends AppCompatActivity {
 
 
             }
-            System.out.println("AFTER STOREDATA: CURRENTCOLLECTION SIZE" + currentCollection.size());
 
             cursor.close();
 
         }
-
-
 
         }
     }

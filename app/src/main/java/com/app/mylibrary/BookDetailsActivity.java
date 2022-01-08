@@ -37,7 +37,6 @@ public class BookDetailsActivity extends AppCompatActivity {
     RecyclerView sameCategoryRV;
     static Book currentBook;
     private RequestQueue requestQueue;
-    DatabaseHelper db = new DatabaseHelper(BookDetailsActivity.this);
 
 
     @Override
@@ -119,10 +118,16 @@ public class BookDetailsActivity extends AppCompatActivity {
             bookmarkIV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DatabaseHelper db = new DatabaseHelper(BookDetailsActivity.this);
                     if (!currentBook.getCollectionStatus()) {
-                        System.out.println("11111111");
                         currentBook.setCollectionStatus(true);
                         db.addBook("my_collection", currentBook);
+                        setIcons();
+                    }
+
+                    else if(currentBook.getCollectionStatus()){
+                        currentBook.setCollectionStatus(false);
+                        db.deleteOneRow("my_collection", currentBook);
                         setIcons();
                     }
                 }
@@ -132,10 +137,16 @@ public class BookDetailsActivity extends AppCompatActivity {
             wishListIV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DatabaseHelper db = new DatabaseHelper(BookDetailsActivity.this);
                     if (!currentBook.getWLStatus()) {
-                        System.out.println("4444444");
                         currentBook.setWLStatus(true);
                         db.addBook("my_wishlist", currentBook);
+                        setIcons();
+                    }
+
+                    else if(currentBook.getWLStatus()){
+                        currentBook.setWLStatus(false);
+                        db.deleteOneRow("my_wishlist", currentBook);
                         setIcons();
                     }
                 }
@@ -263,17 +274,21 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     public void setIcons(){
 
-        System.out.println("IS CURRENT BOOK IN COLLECTION STATUS:" + currentBook.getCollectionStatus());
-        System.out.println("IS CURRENT BOOK IN WL STATUS:" + currentBook.getWLStatus());
-
-
-
         if(currentBook.getWLStatus()){
             wishListIV.setImageResource(R.drawable.full_heart);
         }
 
+        else if(!currentBook.getWLStatus()){
+            wishListIV.setImageResource(R.drawable.empty_heart);
+
+        }
+
         if(currentBook.getCollectionStatus()){
             bookmarkIV.setImageResource(R.drawable.ic_baseline_bookmark_24);
+        }
+
+        else if(!currentBook.getCollectionStatus()){
+            bookmarkIV.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
 
         }
 

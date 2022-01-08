@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton addButton;
     RecyclerView recyclerView;
-    DatabaseHelper db;
-    private ArrayList<Book> bookInfoArrayList;
+    private ArrayList<Book> bookInfoArrayList = new ArrayList<>();
     CollectionAdapter collectionAdapter;
     static boolean isCollection=true;
 
@@ -47,14 +46,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-
         addButton = findViewById(R.id.add_button);
         recyclerView = findViewById(R.id.recyclerView);
-        db = new DatabaseHelper(MainActivity.this);
-        bookInfoArrayList = new ArrayList<>();
+        bookInfoArrayList.clear();
 
         if(isCollection) {
             setTitle("My Collection");
+
             storeData("my_collection");
         }
 
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
             setTitle("My WishList");
             storeData("my_wishlist");
-
         }
 
         collectionAdapter = new CollectionAdapter(MainActivity.this,this, bookInfoArrayList);
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,35 +148,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void storeData(String tableName){
-        Cursor cursor = db.readAllData(tableName);
 
-        if(cursor.getCount()==0){
-            return;
+        try {
+            DatabaseHelper db = new DatabaseHelper(MainActivity.this);
+            Cursor cursor = db.readAllData(tableName);
+
+            if (cursor.getCount() == 0) {
+                return;
+            }
+
+            while (cursor.moveToNext()) {
+
+                bookInfoArrayList.add(new Book(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getInt(7),
+                        cursor.getString(8),
+                        cursor.getString(9),
+                        cursor.getString(10),
+                        cursor.getString(11),
+                        cursor.getString(12),
+                        cursor.getFloat(13),
+                        cursor.getString(14),
+                        cursor.getString(15)));
+
+            }
+            cursor.close();
         }
 
-        while (cursor.moveToNext()){
-
-            bookInfoArrayList.add(new Book(cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getString(6),
-                    cursor.getInt(7),
-                    cursor.getString(8),
-                    cursor.getString(9),
-                    cursor.getString(10),
-                    cursor.getString(11),
-                    cursor.getString(12),
-                    cursor.getFloat(13),
-                    cursor.getString(14),
-                    cursor.getString(15)));
-
-
+        catch(Exception e){
+            e.printStackTrace();
         }
 
-        cursor.close();
+
+
     }
 
     @Override

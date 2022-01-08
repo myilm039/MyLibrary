@@ -118,12 +118,29 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long result = db.insert(tableName, null, cv);
-        if (result == -1) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        if(tableName=="my_collection") {
+            if (result == -1) {
+                Toast.makeText(context, "An error has occurred, please clear cache and try again", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(context, "You have added this book to your collection", Toast.LENGTH_SHORT).show();
+            }
         }
+
+        else if (tableName=="my_wishlist"){
+
+            if (result == -1) {
+                Toast.makeText(context, "An error has occurred, please clear cache and try again", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(context, "You have added this book to your wishlist", Toast.LENGTH_SHORT).show();
+            }
+        }
+        db.close();
+
+
     }
+
 
     Cursor readAllData(String tableName) {
         String query = "SELECT * FROM " + tableName + " ORDER BY " + COLUMN_TITLE + " ASC";
@@ -133,6 +150,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         if (db != null) {
             cursor = db.rawQuery(query, null);
         }
+
         return cursor;
     }
 
@@ -140,18 +158,48 @@ class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteOneRow(String tableName, Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        long result = db.delete(tableName, "_id=?", new String[]{String.valueOf(book.getID())});
-        if (result == -1) {
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        String query = "SELECT * FROM " + tableName + " ORDER BY " + COLUMN_TITLE + " ASC";
+        SQLiteDatabase DB = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (DB != null) {
+            cursor = DB.rawQuery(query, null);
         }
+        while (cursor.moveToNext()) {
+
+            if (cursor.getString(15).equals(book.getUniqueID())) {
+
+                book.setID(cursor.getInt(0));
+            }
+        }
+
+        long result = db.delete(tableName, "_id=?", new String[]{String.valueOf(book.getID())});
+
+        if(tableName=="my_collection") {
+            if (result == -1) {
+                Toast.makeText(context, "An error has occurred, please clear cache or restart the app", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "You have removed this book from your collection", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else if(tableName=="my_wishlist"){
+            if (result == -1) {
+                Toast.makeText(context, "An error has occurred, please clear cache or restart the app", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "You have removed this book from your wishlist", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        db.close();
+
 
     }
 
     public void deleteAllData(String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + tableName);
+        db.close();
     }
 
     public void updateBook(String tableName, Book book){
@@ -184,6 +232,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
         else {
             Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
         }
+        db.close();
 
     }
 
