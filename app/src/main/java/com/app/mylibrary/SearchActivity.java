@@ -1,10 +1,13 @@
 package com.app.mylibrary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -214,13 +217,38 @@ public class SearchActivity extends AppCompatActivity {
                 ,"technology & engineering","transportation","travel");
 
             for(int i=0;i<categories.size();i++){
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(0, 0, 30, 0);
                 Button genreButton = new Button(this);
+                genreButton.setLayoutParams(params);
+
                 int finalI = i;
+                genreButton.setBackgroundResource(R.drawable.rounded_corner);
+                genreButton.setTextColor(ContextCompat.getColor(SearchActivity.this,R.color.white));
+                genreButton.setPadding(30,2,30,2); // To center button content
+
                 genreButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        for(int i=0; i< genresSVLL.getChildCount(); i++) {
+
+                            genresSVLL.getChildAt(i).setBackgroundResource(R.drawable.rounded_corner);
+                            genreButton.setTypeface(null, Typeface.NORMAL);
+                        }
+
+                        genreButton.setBackgroundResource(R.drawable.rounded_corner_purple);
+                        genreButton.setTypeface(null, Typeface.BOLD);
+
+
                         getBooksInfo("",categories.get(finalI));
                     }
+
+
                 });
 
                 genreButton.setText(categories.get(i));
@@ -372,4 +400,6 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         }
-    }
+
+
+        };

@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable-v24/ic_add.xml" value="0.37604166666666666" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable-v24/ic_search.xml" value="0.37604166666666666" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.37604166666666666" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.37604166666666666" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable/rounded_corner.xml" value="0.20989583333333334" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/drawable/rounded_corner_purple.xml" value="0.37604166666666666" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_book_details.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_collection_details.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_main.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/activity_search.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/collection_item.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/genre_button.xml" value="0.29438405797101447" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/horizontal_rv_item.xml" value="0.1" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/layout/search_result_item.xml" value="0.34103260869565216" />
         <entry key="..\:/Users/613-263-1832/AndroidStudioProjects/MyLibrary/app/src/main/res/menu/my_menu.xml" value="0.35989583333333336" />

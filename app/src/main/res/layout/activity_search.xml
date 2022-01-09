@@ -46,7 +46,8 @@
             android:id="@+id/genresSVLL"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:paddingLeft="5dp" />
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
