@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 public class CollectionDetailsActivity extends AppCompatActivity {
 
     TextView titleField, authorsField, numberOfPagesField, publisherField, subtitleField, descriptionField
-            ,publishDateField,previewButton,buyButton,viewabilityField;
+            ,publishDateField,previewButton,buyButton;
     static Button deleteButton, saveChangesButton;
     ImageView bookIV;
     RatingBar ratingBar;
@@ -50,7 +50,6 @@ public class CollectionDetailsActivity extends AppCompatActivity {
         previewButton = findViewById(R.id.previewButton);
         buyButton = findViewById(R.id.buyButton);
         bookIV = findViewById(R.id.bookIV);
-        viewabilityField = findViewById(R.id.viewabilityField);
         deleteButton = findViewById(R.id.deleteButton);
         ratingBar = findViewById(R.id.ratingBar);
         commentField = findViewById(R.id.commentField);
@@ -153,12 +152,17 @@ public class CollectionDetailsActivity extends AppCompatActivity {
         ratingBar.setRating(currentBook.getRating());
         authorsField.setText(currentBook.getAuthors());
         titleField.setText(currentBook.getTitle());
-        publisherField.setText(currentBook.getPublisher());
-        publishDateField.setText(currentBook.getPublishedDate());
-        numberOfPagesField.setText("Number of pages: "+ String.valueOf(currentBook.getPageCount()));
-        viewabilityField.setText("Free Viewability: "+currentBook.getViewability());
+        if(currentBook.getPublisher()==""){
+            publisherField.setText("Publisher Unknown");
+
+        }
+        else {
+            publisherField.setText("Published By : " + currentBook.getPublisher());
+        }
+        publishDateField.setText("Published On : " +currentBook.getPublishedDate());
+        numberOfPagesField.setText("Number of Pages: "+ String.valueOf(currentBook.getPageCount()));
         subtitleField.setText(currentBook.getSubtitle());
-        descriptionField.setText(currentBook.getDescription());
+        descriptionField.setText(currentBook.getDescription() + " ");
         commentField.setText(currentBook.getComment());
         Picasso.get().load(currentBook.getThumbnail()).into(bookIV);
 

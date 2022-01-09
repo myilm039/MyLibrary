@@ -1,4 +1,5 @@
 package com.app.mylibrary;
+import org.apache.commons.lang3.StringUtils;
 
 public class Book {
 
@@ -70,6 +71,11 @@ public class Book {
     public void setWLStatus(boolean status){
 
         isInWL = status;
+    }
+
+    public String getShortDescription(){
+
+        return StringUtils.abbreviate(getDescription(),150);
     }
 
     public void setCollectionStatus(boolean status){

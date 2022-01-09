@@ -53,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
                 android:orientation="vertical">
 
 
@@ -64,7 +64,8 @@
                     android:padding="4dp"
                     android:text="Title"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/authorsField"
@@ -73,7 +74,8 @@
                     android:padding="4dp"
                     android:text="Authors"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/publisherField"
@@ -104,30 +106,10 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/viewabilityField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:padding="4dp"
-                    android:text="Free Viewability"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/genreField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:padding="4dp"
-                    android:text="Category"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                    android:orientation="vertical" />
 
             </LinearLayout>
 
@@ -142,9 +124,10 @@
             android:padding="4dp"
             android:text="subtitle"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-        <TextView
+        <com.borjabravo.readmoretextview.ReadMoreTextView
             android:id="@+id/descriptionField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,7 +135,11 @@
             android:padding="4dp"
             android:text="description"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp"
+            app:colorClickableText="#8D021F"
+            app:trimCollapsedText=" Show Less"
+            app:trimExpandedText=" Show More"
+            app:trimLength="4" />
 
         <LinearLayout
             android:layout_width="match_parent"

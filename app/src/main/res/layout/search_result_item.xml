@@ -10,8 +10,8 @@
     <RelativeLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <ImageView
             android:id="@+id/bookIV"
@@ -40,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleField"
-            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/bookIV"
             android:padding="3dp"
             android:text="Authors:"
@@ -53,12 +52,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/bookAuthorField"
-            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/bookIV"
             android:padding="3dp"
             android:text="Genre:"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textColor="#8D021F"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/shortDescriptionField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genreField"
+            android:layout_toEndOf="@id/bookIV"
+            android:padding="3dp"
+            android:text="Description:"
+            android:textColor="#7D7A7E"
+            android:textSize="12sp"
+            android:textStyle="italic" />
 
 
     </RelativeLayout>

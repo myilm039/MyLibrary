@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +13,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -58,6 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         genresSVLL = findViewById(R.id.genresSVLL);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         fillSV();
+        fillOnStart();
         currentWL.clear();
         currentCollection.clear();
         storeData("my_wishlist");
@@ -210,7 +208,7 @@ public class SearchActivity extends AppCompatActivity {
         List<String> categories = Arrays.asList("antiques & collectibles","architecture","art","bibles","biography & autobiography"
                 ,"body, mind & spirit","business & economics","comics & graphic novels","computers","cooking","crafts & hobbies"
                 ,"crime","design","drama","education","fiction","foreign language study","games & activities"
-                ,"gardening" ,"health & fitness","history","house & home","humor","juvenile fiction","juvenile nonfiction"
+                ,"gardening" ,"health & fitness","history","house & home","humor"
                 ,"language arts & disciplines","law","literary collections","literary criticism","mathematics","medical"
                 ,"music","nature","performing arts","pets","philosophy" ,"photography","poetry","political science"
                 , "psychology","reference","religion","science","self-help", "social science","sports & recreation"
@@ -241,7 +239,7 @@ public class SearchActivity extends AppCompatActivity {
                             genreButton.setTypeface(null, Typeface.NORMAL);
                         }
 
-                        genreButton.setBackgroundResource(R.drawable.rounded_corner_purple);
+                        genreButton.setBackgroundResource(R.drawable.rounded_corner_orange);
                         genreButton.setTypeface(null, Typeface.BOLD);
 
 
@@ -254,6 +252,7 @@ public class SearchActivity extends AppCompatActivity {
                 genreButton.setText(categories.get(i));
                 genresSVLL.addView(genreButton);
             }
+
 
     }
 
@@ -398,6 +397,16 @@ public class SearchActivity extends AppCompatActivity {
             cursor.close();
 
         }
+
+        }
+
+        public void fillOnStart(){
+
+        Button firstButton = (Button) genresSVLL.getChildAt(0);
+            getBooksInfo("","antiques & collectibles");
+            firstButton.setBackgroundResource(R.drawable.rounded_corner_orange);
+            firstButton.setTypeface(null, Typeface.BOLD);
+
 
         }
 

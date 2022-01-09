@@ -31,7 +31,7 @@ import java.util.Collections;
 public class BookDetailsActivity extends AppCompatActivity {
 
     TextView titleField, subtitleField, publisherField, descriptionField, numberOfPagesField, publishingDateField, authorsField,
-            viewabilityField, genreField;
+             genreField;
     Button previewButton, buyButton;
     private ImageView bookIV, bookmarkIV, wishListIV;
     RecyclerView sameCategoryRV;
@@ -54,24 +54,25 @@ public class BookDetailsActivity extends AppCompatActivity {
         buyButton = findViewById(R.id.buyButton);
         bookIV = findViewById(R.id.bookIV);
         authorsField = findViewById(R.id.authorsField);
-        viewabilityField = findViewById(R.id.viewabilityField);
         sameCategoryRV = findViewById(R.id.sameCategoryRV);
-        genreField = findViewById(R.id.genreField);
         bookmarkIV = findViewById(R.id.bookmarkIV);
         wishListIV = findViewById(R.id.wishListIV);
 
 
         titleField.setText(currentBook.getTitle());
-        genreField.setText(currentBook.getCategory());
         subtitleField.setText(currentBook.getSubtitle());
-        publisherField.setText(currentBook.getPublisher());
+        if(currentBook.getPublisher()==""){
+            publisherField.setText("Publisher Unknown");
+
+        }
+        else {
+            publisherField.setText("Published By : " + currentBook.getPublisher());
+        }
         publishingDateField.setText("Published On : " + currentBook.getPublishedDate());
-        descriptionField.setText((currentBook.getDescription()));
-        numberOfPagesField.setText("No Of Pages : " + currentBook.getPageCount());
+        descriptionField.setText((currentBook.getDescription() + " "));
+        numberOfPagesField.setText("Number of Pages : " + currentBook.getPageCount());
         Picasso.get().load(currentBook.getThumbnail()).into(bookIV);
         authorsField.setText(currentBook.getAuthors());
-
-        viewabilityField.setText(viewabilityField.getText() + ": " + currentBook.getViewability());
 
         getSameCategoryRVData(currentBook.getCategory());
         setIcons();
@@ -161,6 +162,16 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     public void getSameCategoryRVData(String category){
+        if(category.contains("Juvenile")){
+
+            category = "Fiction"; //Handling Special cases
+        }
+
+        else if(category.contains("Empire")){
+
+            category = "History"; // Handling Special cases
+
+        }
         ArrayList<Book> sameCategoryBooksList= new ArrayList<>() ;
         requestQueue = Volley.newRequestQueue(BookDetailsActivity.this);
         requestQueue.getCache().clear();

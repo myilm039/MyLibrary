@@ -9,6 +9,7 @@
         android:id="@+id/idLLsearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="5">
 
@@ -19,10 +20,10 @@
             android:layout_weight="4" />
 
         <ImageButton
+            android:id="@+id/searchButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/searchButton"
             android:src="@drawable/ic_search" />
 
     </LinearLayout>
@@ -46,6 +47,7 @@
             android:id="@+id/genresSVLL"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:paddingLeft="5dp" />
     </HorizontalScrollView>

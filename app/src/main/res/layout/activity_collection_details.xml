@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".CollectionDetailsActivity">
 
@@ -39,7 +40,8 @@
                     android:padding="4dp"
                     android:text="Title"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/authorField"
@@ -48,7 +50,8 @@
                     android:padding="4dp"
                     android:text="Author"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/publisherField"
@@ -79,16 +82,6 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/viewabilityField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:padding="4dp"
-                    android:text="Free Viewability"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -102,18 +95,23 @@
             android:padding="4dp"
             android:text="subtitle"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
 
-        <TextView
+        <com.borjabravo.readmoretextview.ReadMoreTextView
             android:id="@+id/descriptionField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:padding="4dp"
+            app:trimCollapsedText=" Show Less"
+            app:trimExpandedText=" Show More"
+            app:colorClickableText="#8D021F"
+            app:trimLength="4"
             android:text="description"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp"/>
 
 
         <LinearLayout

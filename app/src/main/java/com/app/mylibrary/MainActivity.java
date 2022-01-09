@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Book> bookInfoArrayList = new ArrayList<>();
     CollectionAdapter collectionAdapter;
     static boolean isCollection=true;
+    private TextView emptyCollectionText;
 
 
 
@@ -49,17 +50,37 @@ public class MainActivity extends AppCompatActivity {
         addButton = findViewById(R.id.add_button);
         recyclerView = findViewById(R.id.recyclerView);
         bookInfoArrayList.clear();
+        emptyCollectionText = findViewById(R.id.emptyCollectionText);
+
+
 
         if(isCollection) {
             setTitle("My Collection");
 
             storeData("my_collection");
+
+            if(bookInfoArrayList.isEmpty()){
+                emptyCollectionText.setText("Empty Collection");
+            }
+
+            else{
+                emptyCollectionText.setVisibility(View.GONE);
+            }
         }
 
         else{
 
             setTitle("My WishList");
             storeData("my_wishlist");
+            if(bookInfoArrayList.isEmpty()){
+                emptyCollectionText.setText("Empty Wishlist");
+            }
+
+            else{
+
+                emptyCollectionText.setVisibility(View.GONE);
+
+            }
         }
 
         collectionAdapter = new CollectionAdapter(MainActivity.this,this, bookInfoArrayList);

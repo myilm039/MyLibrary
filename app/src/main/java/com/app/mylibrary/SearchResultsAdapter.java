@@ -40,6 +40,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         holder.titleField.setText(bookInfo.getTitle());
         holder.authorField.setText(bookInfo.getAuthors());
         holder.genreField.setText(bookInfo.getCategory());
+        holder.descriptionField.setText(bookInfo.getShortDescription());
+
 
         Picasso.get().load(bookInfo.getThumbnail()).into(holder.bookIV);
 
@@ -61,7 +63,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     }
 
     public class SearchResultsViewHolder extends RecyclerView.ViewHolder {
-        TextView titleField, authorField, genreField;
+        TextView titleField, authorField, genreField, descriptionField;
         ImageView bookIV;
 
         public SearchResultsViewHolder(View itemView) {
@@ -69,6 +71,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             titleField = itemView.findViewById(R.id.titleField);
             authorField = itemView.findViewById(R.id.bookAuthorField);
             genreField = itemView.findViewById(R.id.genreField);
+            descriptionField = itemView.findViewById(R.id.shortDescriptionField);
             bookIV = itemView.findViewById(R.id.bookIV);
 
 

@@ -8,15 +8,12 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -41,16 +38,17 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.collection_item, parent, false);
+        View view = inflater.inflate(R.layout.search_result_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.book_title_txt.setText(String.valueOf(bookInfoList.get(position).getTitle()));
-        holder.book_genre_txt.setText(String.valueOf(bookInfoList.get(position).getAuthors()));
-        holder.description.setText("LOREM IPSUM DOLOR SIT AMET");
+        holder.titleField.setText(String.valueOf(bookInfoList.get(position).getTitle()));
+        holder.authorField.setText(String.valueOf(bookInfoList.get(position).getAuthors()));
+        holder.genreField.setText(bookInfoList.get(position).getCategory());
+        holder.descriptionField.setText(bookInfoList.get(position).getShortDescription());
         Picasso.get().load(bookInfoList.get(position).getThumbnail()).into(holder.bookIV);
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +69,17 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.My
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView book_genre_txt, book_title_txt, description;
+        TextView authorField, genreField, titleField, descriptionField ;
         ImageView bookIV;
-        LinearLayout mainLayout;
+        RelativeLayout mainLayout;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            book_title_txt = itemView.findViewById(R.id.book_title_txt);
-            book_genre_txt = itemView.findViewById(R.id.book_genre_txt);
-            description = itemView.findViewById(R.id.description);
+            titleField = itemView.findViewById(R.id.titleField);
+            genreField = itemView.findViewById(R.id.genreField);
+            authorField = itemView.findViewById(R.id.bookAuthorField);
             bookIV = itemView.findViewById(R.id.bookIV);
+            descriptionField = itemView.findViewById(R.id.shortDescriptionField);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
 
