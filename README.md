@@ -4,9 +4,9 @@ My Library is a Book collection mobile application, built using Android Studio
   The user is able to reach the data of any book, 
   using Google Books API. From the Book Details page,
    the user can add the book to their Collection or Wishlist, and
-    also see and reach similar books. From the same page, the user can preview or buy the book, from the webpage of the book in Google Books.
+    also see and reach similar books. From the same page, the user can preview or buy the book, from the webpage of the book in Google Books website.
      After the user adds a book
-     to their collection, they are able to give rating and add comments to the book. 
+     to their collection, they are able to give rating, and add comments to the book. 
  
 ## API Reference
 
@@ -77,11 +77,12 @@ My Library is a Book collection mobile application, built using Android Studio
 To store the user collection and wishlist data, the app uses SQLite DB. It stores
 the information with the help of SQLiteOpenHelper class.
 
-https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1.png
-
-<img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1.png">
-<img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_2.png">
+Database Structure
 <img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_3.png">
+Collection Table
+<img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_2.png">
+Wishlist Table
+<img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1.png">
 
 
 ## Features
@@ -121,4 +122,5 @@ https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1.
 ## Feedback
 
 If you wish to share any feedback regarding this project, you can reach me by my email at myilm039@uottawa.ca
+
 
