@@ -98,25 +98,26 @@ Wishlist Table
 
 ## Screenshots
 
-<table>
+  <table>
   <tr>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641770159.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771354.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771465.png" width=240 height=480></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641770159.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771354.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771465.png"></td>
   </tr>
   
   <tr>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771883.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771908.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771936.png" width=240 height=480></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771883.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771908.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771936.png"></td>
   </tr>
   
    <tr>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771505.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771728.png" width=240 height=480></td>
-    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771842.png" width=240 height=480></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771505.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771728.png"></td>
+    <td><img src="https://github.com/myilm039/MyLibrary/blob/development/Screenshots/Screenshot_1641771842.png"></td>
   </tr> 
  </table>
+
  
  
 ## Feedback
